@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+var cors = require('cors')
+const port = process.env.PORT || 3001
 const sequelize = require('./database/db');
 require('./database/asociations');
 
@@ -8,12 +9,10 @@ require('./database/asociations');
 //Middlewere 
 //Para parsear para enviar en json
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-//Rutas  para hacer el login
-app.get('/', (req, res) => {
-})
 
 
 app.use('/contacts', require('./routes/listcontacts'))

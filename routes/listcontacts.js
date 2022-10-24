@@ -33,7 +33,8 @@ router.post('/addContact', (req, res) => {
 })
 
 //Update
-router.patch('/:id', (req, res) => {
+router.patch('/update', (req, res) => {
+
     ListContacts.update({
         nombre: req.body.nombre,
         apellidos: req.body.apellidos,
@@ -41,27 +42,25 @@ router.patch('/:id', (req, res) => {
         celular: req.body.celular,
         direccion: req.body.direccion
     }, {
-        Where: {
-            id: req.params.id
-        }
-    }).then(result => {
-        res.json(true)
+        where:{ id: req.body.id}
+    }).then(contactos => {
+        res.json(contactos)
     }).catch(error => {
-        res.json(false)
+        res.json(error)
     })
 
 })
 
 //Delete
-router.delete('/:id', (req, res) => {
+router.delete('/delete', (req, res) => {
     ListContacts.destroy({
         where: {
-            id: req.params.id
+            id: req.body.id
         }
     }).then(result => {
-        res.json(true)
+        res.json(result)
     }).catch(error => {
-        res.json(false)
+        res.json(error)
     })
 
 });

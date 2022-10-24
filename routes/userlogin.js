@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../database/models/User')
 
-router.post('/',(req,res)=>{
+//createUSer
+router.post('/create',(req,res)=>{
 
     User.create({
         username:req.body.username,
@@ -15,6 +16,19 @@ router.post('/',(req,res)=>{
     })
 
 });
+
+//AccessUser
+router.post('/access',(req,res)=>{
+    User.findAll({
+        where:{
+            username:req.body.username,
+            password:req.body.password
+        }
+    }).then(contactos=>{
+        res.json(contactos)
+    })
+
+})
 
 //Mostar lista de 
 
